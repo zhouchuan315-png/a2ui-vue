@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "paths": {
+      "@a2ui/vue-core": ["./packages/core/src"],
+      "@a2ui/vue": ["./packages/renderer/src"],
+      "@a2ui/vue-transport": ["./packages/transport/src"]
+    }
+  },
+  "include": ["packages/*/src/**/*.ts", "packages/*/src/**/*.vue"],
+  "exclude": ["node_modules", "dist"]
+}
