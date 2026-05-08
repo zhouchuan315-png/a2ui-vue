@@ -32,6 +32,6 @@ const alt = computed(() => resolveDynamic(props.componentDef.alt) ?? '')
 .a2-image {
   max-width: 100%;
   height: auto;
-  border-radius: 0.375rem;
+  border-radius: var(--a2-radius-base);
 }
 </style>

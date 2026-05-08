@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 import type { ComponentDef } from '@a2ui/vue-core'
 
 const props = defineProps<{
@@ -21,10 +21,7 @@ const alignItems = computed(() => {
 </script>
 
 <template>
-  <div
-    class="a2-column"
-    :style="{ alignItems }"
-  >
+  <div class="a2-column" :style="{ alignItems }">
     <slot />
   </div>
 </template>
@@ -33,6 +30,6 @@ const alignItems = computed(() => {
 .a2-column {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--a2-space-3);
 }
 </style>

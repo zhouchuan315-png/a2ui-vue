@@ -57,13 +57,15 @@ const checked = computed({
 .a2-checkbox {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--a2-space-2);
   cursor: pointer;
-  font-size: 0.875rem;
+  font-size: var(--a2-font-size-base);
+  color: var(--a2-text-primary);
 }
 .a2-checkbox input {
   width: 1rem;
   height: 1rem;
-  accent-color: var(--a2-primary-color, #3b82f6);
+  accent-color: var(--a2-color-primary);
+  cursor: pointer;
 }
 </style>

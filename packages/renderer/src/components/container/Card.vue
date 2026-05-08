@@ -14,10 +14,10 @@ defineProps<{
 
 <style scoped>
 .a2-card {
-  background: var(--a2-card-bg, #fff);
-  border: 1px solid var(--a2-border-color, #e5e7eb);
-  border-radius: 0.5rem;
-  padding: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  background: var(--a2-bg-surface);
+  border: 1px solid var(--a2-border-default);
+  border-radius: var(--a2-radius-base);
+  padding: var(--a2-space-4);
+  box-shadow: var(--a2-shadow-sm);
 }
 </style>

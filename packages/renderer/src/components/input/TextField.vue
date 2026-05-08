@@ -28,7 +28,6 @@ const placeholder = computed(() => {
   return String(dynamic)
 })
 
-// Two-way binding via path
 const path = computed(() => props.componentDef.value?.path)
 
 const value = computed({
@@ -38,7 +37,6 @@ const value = computed({
   },
   set: (val: string) => {
     if (!path.value) return
-    // Update data model directly (two-way binding)
     const parts = path.value.split('/').filter(Boolean)
     let current = dataModel.value
     for (let i = 0; i < parts.length - 1; i++) {
@@ -50,7 +48,6 @@ const value = computed({
   },
 })
 
-// Validation
 const errorMessage = ref('')
 const checks = computed(() => props.componentDef.checks ?? [])
 
@@ -97,31 +94,41 @@ function handleInput(event: Event) {
 .a2-text-field {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--a2-space-1);
 }
 .a2-text-field-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
+  font-size: var(--a2-font-size-base);
+  font-weight: var(--a2-font-weight-medium);
+  color: var(--a2-text-secondary);
 }
 .a2-text-field-input {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
+  padding: var(--a2-space-2) var(--a2-space-3);
+  border: 1px solid var(--a2-border-default);
+  border-radius: var(--a2-radius-base);
+  font-size: var(--a2-font-size-base);
+  font-family: inherit;
+  color: var(--a2-text-primary);
+  background: var(--a2-bg-surface);
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color var(--a2-transition-fast), box-shadow var(--a2-transition-fast);
+}
+.a2-text-field-input::placeholder {
+  color: var(--a2-text-muted);
 }
 .a2-text-field-input:focus {
-  border-color: var(--a2-primary-color, #3b82f6);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+  border-color: var(--a2-border-focus);
+  box-shadow: var(--a2-shadow-focus);
 }
 .a2-text-field-input--error {
-  border-color: #ef4444;
+  border-color: var(--a2-color-error);
+}
+.a2-text-field-input--error:focus {
+  border-color: var(--a2-color-error);
+  box-shadow: 0 0 0 3px var(--a2-color-error-focus);
 }
 .a2-text-field-error {
-  font-size: 0.75rem;
-  color: #ef4444;
+  font-size: var(--a2-font-size-xs);
+  color: var(--a2-color-error);
   margin: 0;
 }
 </style>

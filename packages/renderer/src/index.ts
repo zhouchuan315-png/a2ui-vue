@@ -7,6 +7,9 @@ export { useA2UI } from './composables/useA2UI'
 export { useSurface } from './composables/useSurface'
 export { useDataModel } from './composables/useDataModel'
 export { registerComponent, getComponentType } from './component-map'
+export { provideTheme, useTheme, useCSSVars } from './theme/provide'
+export { generateCSSVariables } from './theme/design-tokens'
+export type { ThemeTokens } from './theme/tokens'
 
 // Re-export core types
 export type * from '@a2ui/vue-core'

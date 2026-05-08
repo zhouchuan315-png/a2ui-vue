@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { provide, ref, watch } from 'vue'
+import { provide, ref, computed } from 'vue'
 import { SurfaceManager, type ActionMessage, type Theme, type A2UIServerMessage } from '@a2ui/vue-core'
 import SurfaceRenderer from './SurfaceRenderer.vue'
+import { provideTheme } from './theme/provide'
 
 const props = defineProps<{
   theme?: Theme
@@ -10,6 +11,9 @@ const props = defineProps<{
 const emit = defineEmits<{
   action: [action: ActionMessage]
 }>()
+
+// Wire up theme system
+const { cssVars } = provideTheme(props.theme)
 
 const surfaceManager = new SurfaceManager()
 const surfaces = ref(new Map(surfaceManager.getAllSurfaces().map(s => [s.id, s])))
@@ -38,7 +42,6 @@ function processMessage(message: A2UIServerMessage) {
   if (message.deleteSurface) {
     surfaceManager.deleteSurface(message.deleteSurface.surfaceId)
   }
-  // Trigger reactivity
   surfaces.value = new Map(surfaceManager.getAllSurfaces().map(s => [s.id, s]))
 }
 
@@ -58,7 +61,7 @@ defineExpose({ processMessage, processJSON, processJSONStream })
 </script>
 
 <template>
-  <div class="a2ui-renderer">
+  <div class="a2ui-renderer" :style="cssVars">
     <SurfaceRenderer
       v-for="[id, surface] of surfaces"
       :key="id"
@@ -67,8 +70,14 @@ defineExpose({ processMessage, processJSON, processJSONStream })
   </div>
 </template>
 
-<style scoped>
+<style>
+/* Global reset for all A2UI components */
 .a2ui-renderer {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: var(--a2-font-family);
+  font-size: var(--a2-font-size-base);
+  line-height: var(--a2-line-height);
+  color: var(--a2-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 </style>

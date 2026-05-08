@@ -35,6 +35,6 @@ const icon = computed(() => {
   justify-content: center;
   width: 1.25rem;
   height: 1.25rem;
-  font-size: 1rem;
+  font-size: var(--a2-font-size-lg);
 }
 </style>

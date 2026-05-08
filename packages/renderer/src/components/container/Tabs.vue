@@ -7,7 +7,6 @@ const props = defineProps<{
 }>()
 
 const activeIndex = ref(0)
-
 const tabs = props.componentDef.tabs ?? []
 </script>
 
@@ -32,28 +31,34 @@ const tabs = props.componentDef.tabs ?? []
 
 <style scoped>
 .a2-tabs {
-  border: 1px solid var(--a2-border-color, #e5e7eb);
-  border-radius: 0.5rem;
+  border: 1px solid var(--a2-border-default);
+  border-radius: var(--a2-radius-base);
   overflow: hidden;
 }
 .a2-tabs-header {
   display: flex;
-  border-bottom: 1px solid var(--a2-border-color, #e5e7eb);
+  border-bottom: 1px solid var(--a2-border-default);
+  background: var(--a2-bg-muted);
 }
 .a2-tabs-tab {
-  padding: 0.5rem 1rem;
+  padding: var(--a2-space-2) var(--a2-space-4);
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 0.875rem;
-  color: #666;
+  font-size: var(--a2-font-size-base);
+  font-weight: var(--a2-font-weight-medium);
+  color: var(--a2-text-muted);
   border-bottom: 2px solid transparent;
+  transition: all var(--a2-transition-fast);
+}
+.a2-tabs-tab:hover {
+  color: var(--a2-text-secondary);
 }
 .a2-tabs-tab--active {
-  color: var(--a2-primary-color, #3b82f6);
-  border-bottom-color: var(--a2-primary-color, #3b82f6);
+  color: var(--a2-color-primary);
+  border-bottom-color: var(--a2-color-primary);
 }
 .a2-tabs-content {
-  padding: 1rem;
+  padding: var(--a2-space-4);
 }
 </style>

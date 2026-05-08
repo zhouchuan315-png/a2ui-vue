@@ -26,19 +26,19 @@ const visible = ref(false)
 .a2-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--a2-bg-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
 }
 .a2-modal-content {
-  background: #fff;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
+  background: var(--a2-bg-elevated);
+  border-radius: var(--a2-radius-lg);
+  padding: var(--a2-space-6);
   max-width: 90vw;
   max-height: 80vh;
   overflow: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--a2-shadow-xl);
 }
 </style>

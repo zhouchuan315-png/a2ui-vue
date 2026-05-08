@@ -29,6 +29,6 @@ const url = computed(() => {
 <style scoped>
 .a2-video {
   max-width: 100%;
-  border-radius: 0.375rem;
+  border-radius: var(--a2-radius-base);
 }
 </style>

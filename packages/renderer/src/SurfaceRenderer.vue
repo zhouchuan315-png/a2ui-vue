@@ -32,8 +32,8 @@ const hasRoot = computed(() => registry.value.hasComponent('root'))
   container-type: inline-size;
 }
 .a2ui-surface-placeholder {
-  padding: 1rem;
-  color: #888;
+  padding: var(--a2-space-4);
+  color: var(--a2-text-muted);
   font-style: italic;
 }
 </style>

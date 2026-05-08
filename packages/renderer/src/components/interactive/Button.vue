@@ -24,29 +24,21 @@ const label = computed(() => {
 
 const variant = computed(() => props.componentDef.variant ?? 'default')
 
-// Validation checks
 const isValid = computed(() => {
   const checks = props.componentDef.checks
   if (!checks?.length) return true
-
   return checks.every((check: any) => {
-    const result = executeFunction(
-      { call: check.call, args: check.args },
-      dataModel.value,
-      props.scope,
-    )
+    const result = executeFunction({ call: check.call, args: check.args }, dataModel.value, props.scope)
     return result === true
   })
 })
 
 function handleClick() {
   if (!isValid.value) return
-
   const action = props.componentDef.action
   if (!action) return
 
   if ('event' in action && action.event) {
-    // Resolve context values
     const context: Record<string, any> = {}
     if (action.event.context) {
       for (const [key, value] of Object.entries(action.event.context)) {
@@ -57,15 +49,13 @@ function handleClick() {
         }
       }
     }
-
     const actionMsg: ActionMessage = {
       name: action.event.name,
-      surfaceId: '', // Will be filled by surfaceManager
+      surfaceId: '',
       sourceComponentId: props.componentDef.id,
       timestamp: new Date().toISOString(),
       context,
     }
-
     surfaceManager?.dispatchAction(actionMsg)
   }
 
@@ -91,35 +81,36 @@ function handleClick() {
 
 <style scoped>
 .a2-button {
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  padding: var(--a2-space-2) var(--a2-space-4);
+  border-radius: var(--a2-radius-base);
+  font-size: var(--a2-font-size-base);
+  font-weight: var(--a2-font-weight-medium);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--a2-transition-fast);
   border: 1px solid transparent;
+  font-family: inherit;
 }
 .a2-button--default {
-  background: #f3f4f6;
-  color: #374151;
-  border-color: #d1d5db;
+  background: var(--a2-bg-muted);
+  color: var(--a2-text-secondary);
+  border-color: var(--a2-border-default);
 }
 .a2-button--default:hover {
-  background: #e5e7eb;
+  background: var(--a2-bg-hover);
 }
 .a2-button--primary {
-  background: var(--a2-primary-color, #3b82f6);
-  color: white;
+  background: var(--a2-color-primary);
+  color: var(--a2-text-inverse);
 }
 .a2-button--primary:hover {
-  opacity: 0.9;
+  background: var(--a2-color-primary-hover);
 }
 .a2-button--borderless {
   background: transparent;
-  color: var(--a2-primary-color, #3b82f6);
+  color: var(--a2-color-primary);
 }
 .a2-button--borderless:hover {
-  background: rgba(59, 130, 246, 0.08);
+  background: var(--a2-color-primary-focus);
 }
 .a2-button--disabled {
   opacity: 0.5;

@@ -24,11 +24,7 @@ const label = computed(() => {
 const mode = computed(() => props.componentDef.mode ?? 'date')
 
 const inputType = computed(() => {
-  const map: Record<string, string> = {
-    date: 'date',
-    time: 'time',
-    datetime: 'datetime-local',
-  }
+  const map: Record<string, string> = { date: 'date', time: 'time', datetime: 'datetime-local' }
   return map[mode.value] ?? 'date'
 })
 
@@ -69,22 +65,26 @@ const value = computed({
 .a2-datetime {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: var(--a2-space-1);
 }
 .a2-datetime-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #374151;
+  font-size: var(--a2-font-size-base);
+  font-weight: var(--a2-font-weight-medium);
+  color: var(--a2-text-secondary);
 }
 .a2-datetime-input {
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.375rem;
-  font-size: 0.875rem;
+  padding: var(--a2-space-2) var(--a2-space-3);
+  border: 1px solid var(--a2-border-default);
+  border-radius: var(--a2-radius-base);
+  font-size: var(--a2-font-size-base);
+  font-family: inherit;
+  color: var(--a2-text-primary);
+  background: var(--a2-bg-surface);
   outline: none;
+  transition: border-color var(--a2-transition-fast), box-shadow var(--a2-transition-fast);
 }
 .a2-datetime-input:focus {
-  border-color: var(--a2-primary-color, #3b82f6);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+  border-color: var(--a2-border-focus);
+  box-shadow: var(--a2-shadow-focus);
 }
 </style>

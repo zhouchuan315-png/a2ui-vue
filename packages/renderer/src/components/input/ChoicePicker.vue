@@ -74,20 +74,30 @@ function toggle(value: string) {
 .a2-choice-picker {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--a2-space-2);
 }
 .a2-choice-option {
-  padding: 0.375rem 0.75rem;
-  border: 1px solid #d1d5db;
-  border-radius: 1rem;
-  background: #fff;
-  font-size: 0.875rem;
+  padding: var(--a2-space-1) var(--a2-space-3);
+  border: 1px solid var(--a2-border-default);
+  border-radius: var(--a2-radius-full);
+  background: var(--a2-bg-surface);
+  font-size: var(--a2-font-size-base);
+  font-family: inherit;
+  color: var(--a2-text-secondary);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all var(--a2-transition-fast);
+}
+.a2-choice-option:hover {
+  border-color: var(--a2-color-primary);
+  color: var(--a2-color-primary);
 }
 .a2-choice-option--selected {
-  background: var(--a2-primary-color, #3b82f6);
-  color: white;
-  border-color: var(--a2-primary-color, #3b82f6);
+  background: var(--a2-color-primary);
+  color: var(--a2-text-inverse);
+  border-color: var(--a2-color-primary);
+}
+.a2-choice-option--selected:hover {
+  background: var(--a2-color-primary-hover);
+  color: var(--a2-text-inverse);
 }
 </style>

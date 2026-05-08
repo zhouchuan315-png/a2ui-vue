@@ -64,16 +64,18 @@ const value = computed({
 .a2-slider {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--a2-space-3);
 }
 .a2-slider-input {
   flex: 1;
-  accent-color: var(--a2-primary-color, #3b82f6);
+  accent-color: var(--a2-color-primary);
+  cursor: pointer;
 }
 .a2-slider-value {
-  font-size: 0.875rem;
-  color: #374151;
+  font-size: var(--a2-font-size-base);
+  color: var(--a2-text-secondary);
   min-width: 2rem;
   text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 </style>

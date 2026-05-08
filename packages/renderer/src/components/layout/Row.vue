@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed } from 'vue'
 import type { ComponentDef } from '@a2ui/vue-core'
-import { DATAMODEL_KEY } from '../../composables/useSurface'
 
 const props = defineProps<{
   componentDef: ComponentDef
 }>()
-
-const dataModel = inject(DATAMODEL_KEY)!
 
 const alignment = computed(() => props.componentDef.alignment ?? 'start')
 
@@ -24,10 +21,7 @@ const justifyContent = computed(() => {
 </script>
 
 <template>
-  <div
-    class="a2-row"
-    :style="{ justifyContent }"
-  >
+  <div class="a2-row" :style="{ justifyContent }">
     <slot />
   </div>
 </template>
@@ -36,7 +30,7 @@ const justifyContent = computed(() => {
 .a2-row {
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
+  gap: var(--a2-space-3);
   align-items: center;
 }
 </style>
