@@ -4,6 +4,10 @@ import type { DynamicValue, DynamicString, DynamicNumber, DynamicBoolean } from 
 
 // ─── JSON Pointer (RFC 6901) ───
 
+function decodePointerSegment(segment: string): string {
+  return segment.replace(/~1/g, '/').replace(/~0/g, '~')
+}
+
 export function getByPointer(obj: any, pointer: string): any {
   if (!pointer || pointer === '/') return obj
 
@@ -12,8 +16,7 @@ export function getByPointer(obj: any, pointer: string): any {
 
   for (const part of parts) {
     if (current == null) return undefined
-    const decoded = part.replace(/~1/g, '/').replace(/~0/g, '~')
-    current = current[decoded]
+    current = current[decodePointerSegment(part)]
   }
 
   return current
@@ -27,12 +30,15 @@ export function setByPointer(obj: any, pointer: string, value: any): void {
 
   for (let i = 0; i < parts.length - 1; i++) {
     if (current == null) return
-    const decoded = parts[i].replace(/~1/g, '/').replace(/~0/g, '~')
+    const decoded = decodePointerSegment(parts[i])
+    if (typeof current[decoded] !== 'object' || current[decoded] === null) {
+      current[decoded] = {}
+    }
     current = current[decoded]
   }
 
   if (current != null) {
-    const lastKey = parts[parts.length - 1].replace(/~1/g, '/').replace(/~0/g, '~')
+    const lastKey = decodePointerSegment(parts[parts.length - 1])
     current[lastKey] = value
   }
 }
@@ -45,12 +51,11 @@ export function deleteByPointer(obj: any, pointer: string): void {
 
   for (let i = 0; i < parts.length - 1; i++) {
     if (current == null) return
-    const decoded = parts[i].replace(/~1/g, '/').replace(/~0/g, '~')
-    current = current[decoded]
+    current = current[decodePointerSegment(parts[i])]
   }
 
   if (current != null) {
-    const lastKey = parts[parts.length - 1].replace(/~1/g, '/').replace(/~0/g, '~')
+    const lastKey = decodePointerSegment(parts[parts.length - 1])
     if (Array.isArray(current)) {
       current.splice(Number(lastKey), 1)
     } else {
@@ -121,6 +126,30 @@ export function resolvePath(path: string, dataModel: any, scope?: Scope): any {
   }
 
   return result
+}
+
+export function setPath(path: string, dataModel: any, value: any, scope?: Scope): void {
+  if (path.startsWith('/')) {
+    setByPointer(dataModel, path, value)
+    return
+  }
+
+  const parts = path.split('/').filter(Boolean)
+  if (parts.length === 0) return
+
+  let current = scope?.currentItem ?? dataModel
+  for (let i = 0; i < parts.length - 1; i++) {
+    if (current == null) return
+    const key = parts[i]
+    if (typeof current[key] !== 'object' || current[key] === null) {
+      current[key] = {}
+    }
+    current = current[key]
+  }
+
+  if (current != null) {
+    current[parts[parts.length - 1]] = value
+  }
 }
 
 export function resolveLiteral(dynamic: DynamicValue): any {

@@ -6,6 +6,8 @@ import {
   deepMerge,
   isDynamicValue,
   resolveLiteral,
+  resolvePath,
+  setPath,
 } from '../src/data-model'
 
 describe('getByPointer', () => {
@@ -56,6 +58,30 @@ describe('setByPointer', () => {
     const obj: any = { a: 1 }
     setByPointer(obj, '/', 'ignored')
     expect(obj.a).toBe(1)
+  })
+
+  it('creates missing intermediate objects', () => {
+    const obj: any = {}
+    setByPointer(obj, '/user/profile/name', 'Alice')
+    expect(obj.user.profile.name).toBe('Alice')
+  })
+})
+
+describe('setPath', () => {
+  it('sets absolute paths on the root data model', () => {
+    const obj: any = { form: { name: '' } }
+    setPath('/form/name', obj, 'Alice')
+    expect(obj.form.name).toBe('Alice')
+  })
+
+  it('sets relative paths on the current scope item', () => {
+    const obj: any = { items: [{ title: 'Task', done: false }] }
+    const scope = { currentItem: obj.items[0], index: 0 }
+
+    setPath('done', obj, true, scope)
+
+    expect(resolvePath('done', obj, scope)).toBe(true)
+    expect(obj).toEqual({ items: [{ title: 'Task', done: true }] })
   })
 })
 

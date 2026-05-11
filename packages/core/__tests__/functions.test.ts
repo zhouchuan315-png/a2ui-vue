@@ -60,6 +60,29 @@ describe('executeFunction', () => {
     })
   })
 
+  describe('dynamic arguments', () => {
+    it('resolves functionCall arguments before invoking the parent function', () => {
+      registerFunction('prefixValue', (args) => `value:${args.value}`)
+
+      expect(
+        executeFunction(
+          {
+            call: 'prefixValue',
+            args: {
+              value: {
+                functionCall: {
+                  call: 'formatNumber',
+                  args: { value: { path: '/count' }, precision: 0 },
+                },
+              },
+            },
+          },
+          { count: 42 },
+        ),
+      ).toBe('value:42')
+    })
+  })
+
   describe('logic functions', () => {
     it('and - returns true when all truthy', () => {
       expect(executeFunction({ call: 'and', args: { values: [true, true, true] } }, {})).toBe(true)

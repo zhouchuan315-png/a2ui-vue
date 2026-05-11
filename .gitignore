@@ -6,3 +6,6 @@ dist
 *.log
 coverage
 .turbo
+docs
+.claude
+pnpm-lock.yaml

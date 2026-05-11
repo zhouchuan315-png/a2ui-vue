@@ -32,5 +32,21 @@ const justifyContent = computed(() => {
   flex-direction: row;
   gap: var(--a2-space-3);
   align-items: center;
+  width: 100%;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.a2-row :deep(.a2-text-field),
+.a2-row :deep(.a2-datetime),
+.a2-row :deep(.a2-slider) {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.a2-row :deep(.a2-card),
+.a2-row :deep(.a2-tabs) {
+  flex: 1 1 22rem;
+  min-width: 0;
 }
 </style>

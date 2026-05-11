@@ -42,12 +42,12 @@ const tag = computed(() => {
   line-height: var(--a2-line-height);
   color: var(--a2-text-primary);
 }
-.a2-text--h1 { font-size: var(--a2-font-size-4xl); font-weight: var(--a2-font-weight-bold); }
-.a2-text--h2 { font-size: var(--a2-font-size-3xl); font-weight: var(--a2-font-weight-semibold); }
-.a2-text--h3 { font-size: var(--a2-font-size-2xl); font-weight: var(--a2-font-weight-semibold); }
-.a2-text--h4 { font-size: var(--a2-font-size-xl); font-weight: var(--a2-font-weight-medium); }
-.a2-text--h5 { font-size: var(--a2-font-size-lg); font-weight: var(--a2-font-weight-medium); }
-.a2-text--h6 { font-size: var(--a2-font-size-base); font-weight: var(--a2-font-weight-medium); }
-.a2-text--body { font-size: var(--a2-font-size-base); }
-.a2-text--caption { font-size: var(--a2-font-size-sm); color: var(--a2-text-muted); }
+.a2-text--h1 { font-size: var(--a2-font-size-4xl); font-weight: var(--a2-font-weight-bold); line-height: 1.05; letter-spacing: -0.03em; }
+.a2-text--h2 { font-size: var(--a2-font-size-3xl); font-weight: var(--a2-font-weight-bold); line-height: 1.1; letter-spacing: -0.025em; }
+.a2-text--h3 { font-size: var(--a2-font-size-2xl); font-weight: var(--a2-font-weight-semibold); line-height: 1.15; letter-spacing: -0.02em; }
+.a2-text--h4 { font-size: var(--a2-font-size-xl); font-weight: var(--a2-font-weight-semibold); line-height: 1.2; }
+.a2-text--h5 { font-size: var(--a2-font-size-lg); font-weight: var(--a2-font-weight-medium); line-height: 1.3; }
+.a2-text--h6 { font-size: var(--a2-font-size-base); font-weight: var(--a2-font-weight-semibold); line-height: 1.35; }
+.a2-text--body { font-size: var(--a2-font-size-base); color: var(--a2-text-secondary); }
+.a2-text--caption { font-size: var(--a2-font-size-sm); color: var(--a2-text-muted); letter-spacing: 0.01em; }
 </style>

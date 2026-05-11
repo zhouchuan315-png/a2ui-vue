@@ -7,6 +7,8 @@ import A2Text from './components/display/Text.vue'
 import A2Image from './components/display/Image.vue'
 import A2Icon from './components/display/Icon.vue'
 import A2Divider from './components/display/Divider.vue'
+import A2Video from './components/display/Video.vue'
+import A2AudioPlayer from './components/display/AudioPlayer.vue'
 import A2Row from './components/layout/Row.vue'
 import A2Column from './components/layout/Column.vue'
 import A2List from './components/layout/List.vue'
@@ -28,6 +30,8 @@ const builtinComponents: Record<string, Component> = {
   Image: A2Image,
   Icon: A2Icon,
   Divider: A2Divider,
+  Video: A2Video,
+  AudioPlayer: A2AudioPlayer,
   Row: A2Row,
   Column: A2Column,
   List: A2List,

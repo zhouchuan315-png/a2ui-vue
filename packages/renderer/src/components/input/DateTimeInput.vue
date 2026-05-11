@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import type { ComponentDef } from '@a2ui/vue-core'
-import { isDynamicValue, resolvePath, resolveLiteral } from '@a2ui/vue-core'
+import { isDynamicValue, resolvePath, resolveLiteral, setPath } from '@a2ui/vue-core'
 import { DATAMODEL_KEY } from '../../composables/useSurface'
 
 const props = defineProps<{
@@ -37,14 +37,7 @@ const value = computed({
   },
   set: (val: string) => {
     if (!path.value) return
-    const parts = path.value.split('/').filter(Boolean)
-    let current = dataModel.value
-    for (let i = 0; i < parts.length - 1; i++) {
-      current = current?.[parts[i]]
-    }
-    if (current) {
-      current[parts[parts.length - 1]] = val
-    }
+    setPath(path.value, dataModel.value, val, props.scope)
   },
 })
 </script>
@@ -65,26 +58,40 @@ const value = computed({
 .a2-datetime {
   display: flex;
   flex-direction: column;
-  gap: var(--a2-space-1);
+  gap: var(--a2-space-2);
+  width: 100%;
+  min-width: 0;
 }
 .a2-datetime-label {
-  font-size: var(--a2-font-size-base);
-  font-weight: var(--a2-font-weight-medium);
+  font-size: var(--a2-font-size-sm);
+  font-weight: var(--a2-font-weight-semibold);
   color: var(--a2-text-secondary);
+  letter-spacing: 0.01em;
 }
 .a2-datetime-input {
-  padding: var(--a2-space-2) var(--a2-space-3);
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 3rem;
+  padding: 0 var(--a2-space-4);
   border: 1px solid var(--a2-border-default);
-  border-radius: var(--a2-radius-base);
+  border-radius: var(--a2-radius-lg);
   font-size: var(--a2-font-size-base);
   font-family: inherit;
   color: var(--a2-text-primary);
   background: var(--a2-bg-surface);
   outline: none;
-  transition: border-color var(--a2-transition-fast), box-shadow var(--a2-transition-fast);
+  transition:
+    border-color var(--a2-transition-fast),
+    box-shadow var(--a2-transition-fast),
+    background-color var(--a2-transition-fast);
+}
+.a2-datetime-input:hover {
+  border-color: var(--a2-border-strong);
+  background: var(--a2-bg-subtle);
 }
 .a2-datetime-input:focus {
   border-color: var(--a2-border-focus);
+  background: var(--a2-bg-surface);
   box-shadow: var(--a2-shadow-focus);
 }
 </style>

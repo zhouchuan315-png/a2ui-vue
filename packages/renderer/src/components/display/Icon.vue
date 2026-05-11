@@ -33,8 +33,13 @@ const icon = computed(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.25rem;
-  height: 1.25rem;
-  font-size: var(--a2-font-size-lg);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: var(--a2-bg-tint);
+  color: var(--a2-color-primary);
+  font-size: var(--a2-font-size-base);
+  font-weight: var(--a2-font-weight-semibold);
+  flex: 0 0 auto;
 }
 </style>

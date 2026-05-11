@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import type { ComponentDef } from '@a2ui/vue-core'
-import { isDynamicValue, resolvePath, resolveLiteral } from '@a2ui/vue-core'
+import { isDynamicValue, resolvePath, resolveLiteral, setPath } from '@a2ui/vue-core'
 import { DATAMODEL_KEY } from '../../composables/useSurface'
 
 const props = defineProps<{
@@ -33,20 +33,19 @@ const value = computed({
   },
   set: (val: number) => {
     if (!path.value) return
-    const parts = path.value.split('/').filter(Boolean)
-    let current = dataModel.value
-    for (let i = 0; i < parts.length - 1; i++) {
-      current = current?.[parts[i]]
-    }
-    if (current) {
-      current[parts[parts.length - 1]] = val
-    }
+    setPath(path.value, dataModel.value, val, props.scope)
   },
+})
+
+const progress = computed(() => {
+  const range = max.value - min.value
+  if (range <= 0) return 0
+  return ((value.value - min.value) / range) * 100
 })
 </script>
 
 <template>
-  <div class="a2-slider">
+  <div class="a2-slider" :style="{ '--a2-slider-progress': `${progress}%` }">
     <input
       type="range"
       :min="min"
@@ -65,16 +64,62 @@ const value = computed({
   display: flex;
   align-items: center;
   gap: var(--a2-space-3);
+  width: 100%;
+  min-width: 0;
 }
 .a2-slider-input {
   flex: 1;
-  accent-color: var(--a2-color-primary);
+  appearance: none;
+  -webkit-appearance: none;
+  height: 0.38rem;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--a2-color-primary) 0%,
+      var(--a2-color-primary) var(--a2-slider-progress),
+      var(--a2-bg-muted) var(--a2-slider-progress),
+      var(--a2-bg-muted) 100%
+    );
   cursor: pointer;
 }
+
+.a2-slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: var(--a2-color-primary);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--a2-color-primary) 28%, transparent);
+}
+
+.a2-slider-input::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: var(--a2-color-primary);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--a2-color-primary) 28%, transparent);
+}
+
+.a2-slider-input::-moz-range-track {
+  height: 0.38rem;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.a2-slider-input:focus-visible {
+  outline: none;
+}
+
 .a2-slider-value {
-  font-size: var(--a2-font-size-base);
+  min-width: 3rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: var(--a2-radius-full);
+  background: var(--a2-bg-subtle);
+  font-size: var(--a2-font-size-sm);
   color: var(--a2-text-secondary);
-  min-width: 2rem;
   text-align: right;
   font-variant-numeric: tabular-nums;
 }

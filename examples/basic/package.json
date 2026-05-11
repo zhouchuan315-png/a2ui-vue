@@ -11,6 +11,7 @@
   "dependencies": {
     "@a2ui/vue": "workspace:*",
     "@a2ui/vue-transport": "workspace:*",
+    "highlight.js": "^11.11.1",
     "vue": "^3.5.0"
   },
   "devDependencies": {

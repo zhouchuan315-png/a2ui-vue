@@ -490,6 +490,141 @@ registerComponent('Rating', MyRating)
 
 ---
 
+## 8.1 组件完善计划
+
+### 目标
+
+当前渲染器已经具备基础协议渲染能力，但组件层仍存在三类明显问题：
+
+- 容器层级和布局默认值不统一，导致组件容易缩成局部小块，视觉上不稳定。
+- 输入与交互组件缺乏统一的尺寸、状态和反馈语言，与参考工作台风格存在差距。
+- 示例页虽然已经具备预览与数据面板结构，但距离 `a2ui-composer` 的工作台质感仍有明显差距。
+
+本轮目标不是简单修补单个样式，而是把组件库整理成一套更稳定的工作台式视觉系统，使其更接近 `https://a2ui-composer.ag-ui.com/custom-catalog` 的布局、密度和信息组织方式。
+
+### 执行原则
+
+- 先统一基础容器，再细化输入组件，最后补展示组件和示例页。
+- 优先修改共享组件与 design tokens，避免在示例页堆叠一次性样式。
+- 所有视觉调整必须兼顾桌面与窄屏，不允许只在单一 viewport 下成立。
+- 组件修改完成后必须通过本地构建或类型检查，并在浏览器中回归验证。
+
+### 分阶段计划
+
+#### 第一阶段：基础布局组件统一
+
+目标：先把承载层做稳，避免后续输入组件和展示组件继续建立在不稳定容器之上。
+
+涉及文件：
+
+- `packages/renderer/src/components/layout/Row.vue`
+- `packages/renderer/src/components/layout/Column.vue`
+- `packages/renderer/src/components/container/Card.vue`
+- `packages/renderer/src/components/container/Tabs.vue`
+- `packages/renderer/src/SurfaceRenderer.vue`
+
+计划内容：
+
+- 统一卡片、标签页和 surface 容器的圆角、边框、阴影和背景层次。
+- 统一 `width: 100%`、`min-width: 0`、滚动容器和内容留白规则。
+- 调整 `Row` / `Column` 的默认伸展行为，减少内容被挤压的情况。
+- 优化 tabs header、active 态和内容区间距，使其更接近 composer 的 panel 语言。
+
+#### 第二阶段：表单与交互组件精修
+
+目标：让输入组件具备一致的尺寸、边框语言和交互反馈。
+
+涉及文件：
+
+- `packages/renderer/src/components/input/TextField.vue`
+- `packages/renderer/src/components/input/ChoicePicker.vue`
+- `packages/renderer/src/components/input/CheckBox.vue`
+- `packages/renderer/src/components/input/Slider.vue`
+- `packages/renderer/src/components/input/DateTimeInput.vue`
+- `packages/renderer/src/components/interactive/Button.vue`
+
+计划内容：
+
+- 统一输入框高度、内边距、边框、focus ring 和 disabled / error 状态。
+- 优化 `ChoicePicker` 的 chip 形态、选中态和 hover 态。
+- 统一主按钮、默认按钮、无边框按钮的视觉层级。
+- 调整 `Slider`、`CheckBox` 等小控件与文本体系的对齐关系。
+
+#### 第三阶段：展示组件信息层次优化
+
+目标：让展示组件不再只是“能显示”，而是具备稳定的阅读层次。
+
+涉及文件：
+
+- `packages/renderer/src/components/display/Text.vue`
+- `packages/renderer/src/components/display/Divider.vue`
+- `packages/renderer/src/components/display/Icon.vue`
+- `packages/renderer/src/components/display/Image.vue`
+- `packages/renderer/src/components/display/Video.vue`
+- `packages/renderer/src/components/display/AudioPlayer.vue`
+
+计划内容：
+
+- 统一标题、正文、辅助文案的字级、字重和颜色体系。
+- 调整 `Divider` 的弱分隔感，避免过度抢视觉。
+- 为媒体类组件补齐容器感、占位感和空态策略。
+
+#### 第四阶段：示例页工作台继续贴近参考站
+
+目标：把 demo 页从“参考风格”推进到“更像 composer 的本地工作台”。
+
+涉及文件：
+
+- `examples/basic/src/App.vue`
+
+计划内容：
+
+- 细化左侧导航层级、辅助信息和当前态。
+- 让右侧 JSON 面板更接近编辑器式信息结构。
+- 优化中间预览区的框架感、tab 密度和 panel 头部。
+- 将 action stream 进一步整理成更像控制台的区域。
+
+#### 第五阶段：主题令牌与一致性收口
+
+目标：把前面分散在组件内的样式决定，收口成更稳定的 tokens。
+
+涉及文件：
+
+- `packages/renderer/src/theme/design-tokens.ts`
+- `packages/renderer/src/theme/tokens.ts`
+- `packages/renderer/src/theme/provide.ts`
+
+计划内容：
+
+- 抽出 spacing、radius、border、shadow、focus 等核心视觉 token。
+- 统一组件状态色和表层背景体系。
+- 减少组件内硬编码颜色，提升后续换肤与维护性。
+
+### 推荐执行顺序
+
+建议按以下顺序推进：
+
+1. 基础布局组件
+2. 表单与交互组件
+3. 展示组件
+4. 示例页工作台
+5. 主题令牌收口
+
+### 当前优先级
+
+当前最先应该完成的组件是：
+
+- `Card`
+- `Tabs`
+- `TextField`
+- `Button`
+- `ChoicePicker`
+- `Text`
+
+这六个组件决定了大部分 demo 页的第一视觉质量，优先级最高。
+
+---
+
 ## 9. 开发计划
 
 | 阶段 | 内容 | 估时 |

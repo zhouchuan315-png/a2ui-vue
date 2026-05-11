@@ -1,7 +1,7 @@
 // A2UI v0.9 Client Functions Registry
 
 import type { Scope } from '../data-model'
-import { resolvePath, isDynamicValue } from '../data-model'
+import { resolvePath, isDynamicValue, resolveLiteral } from '../data-model'
 import { validationFunctions } from './validation'
 import { formatFunctions } from './format'
 import { logicFunctions } from './logic'
@@ -25,7 +25,13 @@ function resolveArgs(args: Record<string, any> | undefined, dataModel: any, scop
   const resolved: Record<string, any> = {}
   for (const [key, value] of Object.entries(args)) {
     if (isDynamicValue(value)) {
-      resolved[key] = resolvePath((value as any).path, dataModel, scope) ?? resolveLiteral(value)
+      if ('path' in value && value.path) {
+        resolved[key] = resolvePath(value.path, dataModel, scope)
+      } else if ('functionCall' in value && value.functionCall) {
+        resolved[key] = executeFunction(value.functionCall, dataModel, scope)
+      } else {
+        resolved[key] = resolveLiteral(value)
+      }
     } else if (typeof value === 'object' && value !== null && 'call' in value) {
       // Nested function call
       resolved[key] = executeFunction(value, dataModel, scope)
@@ -34,13 +40,6 @@ function resolveArgs(args: Record<string, any> | undefined, dataModel: any, scop
     }
   }
   return resolved
-}
-
-function resolveLiteral(dynamic: any): any {
-  if ('literalString' in dynamic) return dynamic.literalString
-  if ('literalNumber' in dynamic) return dynamic.literalNumber
-  if ('literalBoolean' in dynamic) return dynamic.literalBoolean
-  return undefined
 }
 
 export function executeFunction(

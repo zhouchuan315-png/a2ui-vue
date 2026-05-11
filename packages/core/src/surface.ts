@@ -55,6 +55,10 @@ export class SurfaceManager {
     return Array.from(this.surfaces.values())
   }
 
+  clear(): void {
+    this.surfaces.clear()
+  }
+
   // Update data model with upsert semantics
   updateDataModel(surfaceId: string, path: string | undefined, value: any): void {
     const surface = this.surfaces.get(surfaceId)

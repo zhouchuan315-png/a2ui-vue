@@ -10,6 +10,7 @@ export {
   deleteByPointer,
   deepMerge,
   resolvePath,
+  setPath,
   isDynamicValue,
   resolveLiteral,
   type Scope,

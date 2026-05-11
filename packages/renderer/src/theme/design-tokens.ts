@@ -12,7 +12,7 @@ export function generateCSSVariables(tokens: ThemeTokens): Record<string, string
 
   return {
     // ─── Typography ───
-    '--a2-font-family': tokens.fontFamily ?? "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+    '--a2-font-family': tokens.fontFamily ?? "'IBM Plex Sans', 'Avenir Next', 'Segoe UI', sans-serif",
     '--a2-line-height': '1.5',
 
     '--a2-font-size-xs': '0.75rem',    // 12px
@@ -50,22 +50,28 @@ export function generateCSSVariables(tokens: ThemeTokens): Record<string, string
     '--a2-bg-surface': '#ffffff',
     '--a2-bg-elevated': '#ffffff',
     '--a2-bg-muted': '#f1f5f9',
+    '--a2-bg-subtle': '#f8f7fc',
+    '--a2-bg-tint': hexToRgba(p, 0.08),
     '--a2-bg-hover': '#f1f5f9',
     '--a2-bg-overlay': 'rgba(0, 0, 0, 0.5)',
 
     // ─── Border ───
     '--a2-border-default': '#e2e8f0',
+    '--a2-border-strong': '#cbd5e1',
     '--a2-border-focus': p,
 
     // ─── Border Radius ───
     '--a2-radius-sm': '4px',
     '--a2-radius-base': '8px',
     '--a2-radius-lg': '12px',
+    '--a2-radius-xl': '18px',
     '--a2-radius-full': '9999px',
 
     // ─── Shadows ───
     '--a2-shadow-sm': '0 1px 2px rgba(0, 0, 0, 0.05)',
     '--a2-shadow-base': '0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)',
+    '--a2-shadow-card': '0 10px 30px rgba(15, 23, 42, 0.06)',
+    '--a2-shadow-panel': '0 18px 42px rgba(57, 45, 101, 0.08)',
     '--a2-shadow-lg': '0 10px 25px rgba(0, 0, 0, 0.15)',
     '--a2-shadow-xl': '0 20px 50px rgba(0, 0, 0, 0.25)',
     '--a2-shadow-focus': `0 0 0 3px ${pFocus}`,
@@ -77,6 +83,7 @@ export function generateCSSVariables(tokens: ThemeTokens): Record<string, string
     '--a2-space-4': '16px',
     '--a2-space-5': '20px',
     '--a2-space-6': '24px',
+    '--a2-space-7': '28px',
     '--a2-space-8': '32px',
 
     // ─── Transition ───

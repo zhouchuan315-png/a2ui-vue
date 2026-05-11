@@ -57,7 +57,12 @@ function processJSONStream(chunk: string) {
   chunk.split('\n').filter(l => l.trim()).forEach(processJSON)
 }
 
-defineExpose({ processMessage, processJSON, processJSONStream })
+function reset() {
+  surfaceManager.clear()
+  surfaces.value = new Map()
+}
+
+defineExpose({ processMessage, processJSON, processJSONStream, reset })
 </script>
 
 <template>

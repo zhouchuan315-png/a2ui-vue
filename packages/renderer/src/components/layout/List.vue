@@ -16,6 +16,8 @@ defineProps<{
 .a2-list {
   display: flex;
   flex-direction: column;
-  gap: var(--a2-space-2);
+  gap: var(--a2-space-3);
+  width: 100%;
+  min-width: 0;
 }
 </style>

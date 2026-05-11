@@ -30,6 +30,8 @@ const alignItems = computed(() => {
 .a2-column {
   display: flex;
   flex-direction: column;
-  gap: var(--a2-space-3);
+  gap: var(--a2-space-4);
+  width: 100%;
+  min-width: 0;
 }
 </style>
