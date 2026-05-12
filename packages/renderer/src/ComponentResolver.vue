@@ -11,7 +11,7 @@ const props = defineProps<{
 
 const { registry, dataModel } = useSurface()
 
-const componentDef = computed(() => registry.getComponent(props.componentId))
+const componentDef = computed(() => registry.value.getComponent(props.componentId))
 const componentType = computed(() => {
   if (!componentDef.value) return null
   return getComponentType(componentDef.value.component)

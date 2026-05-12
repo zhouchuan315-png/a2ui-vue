@@ -49,4 +49,20 @@ const justifyContent = computed(() => {
   flex: 1 1 22rem;
   min-width: 0;
 }
+
+.a2-row :deep(.a2-image-frame) {
+  flex: 0 0 auto;
+  max-width: 40%;
+}
+
+.a2-row :deep(.a2-image) {
+  width: 220px;
+  height: 160px;
+  aspect-ratio: unset;
+}
+
+.a2-row :deep(.a2-column) {
+  flex: 1 1 0;
+  min-width: 0;
+}
 </style>

@@ -24,6 +24,7 @@ defineProps<{
   width: 100%;
   box-sizing: border-box;
   min-width: 0;
+  min-height: 3rem;
   background: var(--a2-bg-surface);
   border: 1px solid var(--a2-border-default);
   border-radius: var(--a2-radius-lg);

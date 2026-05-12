@@ -13,6 +13,7 @@ export const appMessages = {
       composition: '组合组件',
       json: 'JSON 渲染',
       docs: '使用文档',
+      restaurant: '餐厅查找',
     },
     sidebar: {
       workspace: '工作区',
@@ -96,6 +97,16 @@ export const appMessages = {
         summary: '组合图片、视频、音频、弹窗和列表内容的媒体展示组件。',
       },
     },
+    restaurantFinder: {
+      eyebrow: '餐厅查找',
+      title: '餐厅查找 Agent',
+      summary: '模拟 Agent 流式输出 JSONL 消息，逐步构建餐厅列表界面。可控制播放速度、逐步查看事件流。',
+      streamTitle: 'JSONL 事件流',
+      renderTitle: '渲染预览',
+      renderCaption: '由 A2UIRenderer 实时渲染的餐厅列表界面。',
+      liveLabel: '实时',
+      actionStream: '动作流',
+    },
   },
   en: {
     brandSubtitle: 'Local Vue Renderer',
@@ -104,6 +115,7 @@ export const appMessages = {
       composition: 'Composition Components',
       json: 'JSON Renderer',
       docs: 'Usage Docs',
+      restaurant: 'Restaurant Finder',
     },
     sidebar: {
       workspace: 'Workspace',
@@ -186,6 +198,16 @@ export const appMessages = {
         label: 'Media Gallery',
         summary: 'A media component composed from image, video, audio, modal, and list content.',
       },
+    },
+    restaurantFinder: {
+      eyebrow: 'Restaurant Finder',
+      title: 'Restaurant Finder Agent',
+      summary: 'Simulates an agent streaming JSONL messages to progressively build a restaurant list UI. Control playback speed and step through events.',
+      streamTitle: 'JSONL Stream',
+      renderTitle: 'Rendered Preview',
+      renderCaption: 'Restaurant list UI rendered in real-time by A2UIRenderer.',
+      liveLabel: 'Live',
+      actionStream: 'Action Stream',
     },
   },
 } as const

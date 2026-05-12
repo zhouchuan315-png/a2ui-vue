@@ -1,26 +1,43 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import BasicCatalogPage from './BasicCatalogPage.vue'
-import CompositionComponentsPage from './CompositionComponentsPage.vue'
-import JsonRendererPage from './JsonRendererPage.vue'
-import UsageDocsPage from './UsageDocsPage.vue'
+import { useRoute, useRouter } from 'vue-router'
 import { appMessages, localeOptions, type Locale } from './i18n'
 
-type WorkspaceView = 'basic' | 'composition' | 'json' | 'docs'
+type NavKey = 'basic' | 'composition' | 'json' | 'docs' | 'restaurant'
+
+interface NavItem {
+  key: NavKey
+  route: string
+}
+
+const navItems: NavItem[] = [
+  { key: 'basic', route: '/' },
+  { key: 'composition', route: '/composition' },
+  { key: 'json', route: '/json' },
+  { key: 'docs', route: '/docs' },
+  { key: 'restaurant', route: '/restaurant' },
+]
 
 const navIconPaths: Record<string, string[]> = {
   basic: ['M6 5.5h12v13H6z', 'M9 9h6M9 13h6'],
   composition: ['M6 6h5v5H6zM13 6h5v5h-5zM9.5 13h5v5h-5z'],
   json: ['M8 8l-3 4 3 4', 'M16 8l3 4-3 4', 'M13.5 6.5l-3 11'],
   docs: ['M6.5 5.5h8l3 3v10h-11z', 'M14.5 5.5v3h3', 'M9 12h6M9 15h6M9 9h2'],
+  restaurant: ['M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'],
   workspace: ['M4.5 6.5h15v11h-15z', 'M4.5 10.5h15', 'M10.5 10.5v7'],
 }
 
+const route = useRoute()
+const router = useRouter()
 const locale = ref<Locale>(getInitialLocale())
-const activeWorkspace = ref<WorkspaceView>('basic')
 const t = computed(() => appMessages[locale.value])
 
-const currentWorkspaceLabel = computed(() => t.value.nav[activeWorkspace.value])
+const activeRouteName = computed(() => {
+  const match = navItems.find((item) => item.route === route.path)
+  return match?.key ?? 'basic'
+})
+
+const currentWorkspaceLabel = computed(() => t.value.nav[activeRouteName.value])
 
 function getInitialLocale(): Locale {
   if (typeof window === 'undefined') return 'zh'
@@ -32,8 +49,8 @@ function setLocale(nextLocale: Locale) {
   locale.value = nextLocale
 }
 
-function setWorkspace(view: WorkspaceView) {
-  activeWorkspace.value = view
+function navigateTo(routePath: string) {
+  router.push(routePath)
 }
 
 watch(
@@ -76,15 +93,17 @@ watch(
 
       <nav class="sidebar-nav">
         <button
+          v-for="item in navItems"
+          :key="item.key"
           class="nav-item"
-          :class="{ 'nav-item--active': activeWorkspace === 'basic' }"
+          :class="{ 'nav-item--active': activeRouteName === item.key }"
           type="button"
-          @click="setWorkspace('basic')"
+          @click="navigateTo(item.route)"
         >
           <span class="nav-icon">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path
-                v-for="path in navIconPaths.basic"
+                v-for="path in navIconPaths[item.key]"
                 :key="path"
                 :d="path"
                 stroke="currentColor"
@@ -94,73 +113,7 @@ watch(
               />
             </svg>
           </span>
-          {{ t.nav.basic }}
-        </button>
-
-        <button
-          class="nav-item"
-          :class="{ 'nav-item--active': activeWorkspace === 'composition' }"
-          type="button"
-          @click="setWorkspace('composition')"
-        >
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                v-for="path in navIconPaths.composition"
-                :key="path"
-                :d="path"
-                stroke="currentColor"
-                stroke-width="1.7"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-          {{ t.nav.composition }}
-        </button>
-
-        <button
-          class="nav-item"
-          :class="{ 'nav-item--active': activeWorkspace === 'json' }"
-          type="button"
-          @click="setWorkspace('json')"
-        >
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                v-for="path in navIconPaths.json"
-                :key="path"
-                :d="path"
-                stroke="currentColor"
-                stroke-width="1.7"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-          {{ t.nav.json }}
-        </button>
-
-        <button
-          class="nav-item"
-          :class="{ 'nav-item--active': activeWorkspace === 'docs' }"
-          type="button"
-          @click="setWorkspace('docs')"
-        >
-          <span class="nav-icon">
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path
-                v-for="path in navIconPaths.docs"
-                :key="path"
-                :d="path"
-                stroke="currentColor"
-                stroke-width="1.7"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-          {{ t.nav.docs }}
+          {{ t.nav[item.key] }}
         </button>
       </nav>
 
@@ -188,11 +141,8 @@ watch(
       </div>
     </aside>
 
-    <main class="workspace" :class="{ 'workspace--basic': activeWorkspace === 'basic' }">
-      <BasicCatalogPage v-if="activeWorkspace === 'basic'" :locale="locale" />
-      <CompositionComponentsPage v-else-if="activeWorkspace === 'composition'" :locale="locale" />
-      <JsonRendererPage v-else-if="activeWorkspace === 'json'" :locale="locale" />
-      <UsageDocsPage v-else :locale="locale" />
+    <main class="workspace" :class="{ 'workspace--basic': activeRouteName === 'basic' }">
+      <router-view :locale="locale" />
     </main>
   </div>
 </template>

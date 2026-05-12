@@ -16,6 +16,7 @@ export interface SurfaceInstance {
   componentRegistry: ComponentRegistry
   dataModel: Record<string, any>
   createdAt: number
+  _version: number
 }
 
 export type ActionHandler = (action: ActionMessage) => void
@@ -33,6 +34,7 @@ export class SurfaceManager {
       componentRegistry: new ComponentRegistry(),
       dataModel: {},
       createdAt: Date.now(),
+      _version: 0,
     }
 
     this.surfaces.set(msg.surfaceId, surface)

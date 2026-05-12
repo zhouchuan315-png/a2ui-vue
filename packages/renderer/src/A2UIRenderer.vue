@@ -31,6 +31,7 @@ function processMessage(message: A2UIServerMessage) {
   if (message.updateComponents?.surfaceId) {
     const surface = surfaceManager.getSurface(message.updateComponents.surfaceId)
     surface?.componentRegistry.updateComponents(message.updateComponents.components)
+    if (surface) surface._version++
   }
   if (message.updateDataModel?.surfaceId) {
     surfaceManager.updateDataModel(
@@ -38,6 +39,8 @@ function processMessage(message: A2UIServerMessage) {
       message.updateDataModel.path,
       message.updateDataModel.value,
     )
+    const surface = surfaceManager.getSurface(message.updateDataModel.surfaceId)
+    if (surface) surface._version++
   }
   if (message.deleteSurface) {
     surfaceManager.deleteSurface(message.deleteSurface.surfaceId)
@@ -69,7 +72,7 @@ defineExpose({ processMessage, processJSON, processJSONStream, reset })
   <div class="a2ui-renderer" :style="cssVars">
     <SurfaceRenderer
       v-for="[id, surface] of surfaces"
-      :key="id"
+      :key="id + '-' + surface._version"
       :surface="surface"
     />
   </div>
