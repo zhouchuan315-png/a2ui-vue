@@ -29,10 +29,10 @@ importers:
 
   examples/basic:
     dependencies:
-      '@a2ui/vue':
+      '@nine1ie/a2ui-vue':
         specifier: workspace:*
         version: link:../../packages/renderer
-      '@a2ui/vue-transport':
+      '@nine1ie/a2ui-vue-transport':
         specifier: workspace:*
         version: link:../../packages/transport
       highlight.js:
@@ -66,7 +66,7 @@ importers:
 
   packages/renderer:
     dependencies:
-      '@a2ui/vue-core':
+      '@nine1ie/a2ui-vue-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -94,7 +94,7 @@ importers:
 
   packages/transport:
     dependencies:
-      '@a2ui/vue-core':
+      '@nine1ie/a2ui-vue-core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

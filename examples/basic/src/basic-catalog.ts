@@ -1,4 +1,4 @@
-import type { A2UIServerMessage } from '@a2ui/vue-core'
+import type { A2UIServerMessage } from '@nine1ie/a2ui-vue-core'
 
 export type BasicCatalogSection =
   | 'Layout'

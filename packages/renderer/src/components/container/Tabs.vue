@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { ComponentDef, Scope } from '@a2ui/vue-core'
+import type { ComponentDef, Scope } from '@nine1ie/a2ui-vue-core'
 import ComponentResolver from '../../ComponentResolver.vue'
 
 const props = defineProps<{

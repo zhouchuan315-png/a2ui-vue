@@ -8,7 +8,7 @@ import {
   type SurfaceInstance,
   type Theme,
   type ActionMessage,
-} from '@a2ui/vue-core'
+} from '@nine1ie/a2ui-vue-core'
 
 export interface A2UIOptions {
   onAction?: (action: ActionMessage) => void

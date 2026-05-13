@@ -1,7 +1,7 @@
 // useSurface - Access current surface context
 
 import { inject, ref, computed, type InjectionKey, provide, type Ref, type ComputedRef } from 'vue'
-import type { SurfaceInstance, ComponentRegistry } from '@a2ui/vue-core'
+import type { SurfaceInstance, ComponentRegistry } from '@nine1ie/a2ui-vue-core'
 
 export const SURFACE_KEY: InjectionKey<Ref<SurfaceInstance>> = Symbol('a2ui:surface')
 export const REGISTRY_KEY: InjectionKey<ComputedRef<ComponentRegistry>> = Symbol('a2ui:registry')

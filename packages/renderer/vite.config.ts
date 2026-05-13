@@ -19,7 +19,7 @@ export default defineConfig({
       fileName: 'index',
     },
     rollupOptions: {
-      external: ['vue', '@a2ui/vue-core'],
+      external: ['vue', '@nine1ie/a2ui-vue-core'],
       output: {
         globals: {
           vue: 'Vue',
@@ -30,7 +30,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@a2ui/vue-core': resolve(__dirname, '../core/src'),
+      '@nine1ie/a2ui-vue-core': resolve(__dirname, '../core/src'),
     },
   },
 })

@@ -1,7 +1,7 @@
 // Mock A2UI v0.9 messages simulating a restaurant finder agent stream
 // Components and data are interleaved with granular field-by-field updates
 
-import type { A2UIServerMessage } from '@a2ui/vue-core'
+import type { A2UIServerMessage } from '@nine1ie/a2ui-vue-core'
 
 const restaurantImages: Record<string, string> = {
   xian: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=260&fit=crop',

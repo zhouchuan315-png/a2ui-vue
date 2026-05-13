@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, ref, watch } from 'vue'
-import type { ComponentDef, Scope } from '@a2ui/vue-core'
+import type { ComponentDef, Scope } from '@nine1ie/a2ui-vue-core'
 import ComponentResolver from '../../ComponentResolver.vue'
 import { useCSSVars } from '../../theme/provide'
 

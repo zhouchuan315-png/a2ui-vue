@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { getByPointer, isTemplateChildList, type Scope } from '@a2ui/vue-core'
+import { getByPointer, isTemplateChildList, type Scope } from '@nine1ie/a2ui-vue-core'
 import { getComponentType } from './component-map'
 import { useSurface } from './composables/useSurface'
 

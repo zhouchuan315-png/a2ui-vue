@@ -16,9 +16,9 @@ A Vue 3 renderer and component library for A2UI Protocol v0.9. This repository i
 
 ```text
 packages/
-  core/          A2UI protocol core and types, package @a2ui/vue-core
-  renderer/      Vue 3 renderer and component library, package @a2ui/vue
-  transport/     SSE / WebSocket transport adapters, package @a2ui/vue-transport
+  core/          A2UI protocol core and types, package @nine1ie/a2ui-vue-core
+  renderer/      Vue 3 renderer and component library, package @nine1ie/a2ui-vue
+  transport/     SSE / WebSocket transport adapters, package @nine1ie/a2ui-vue-transport
 
 examples/
   basic/         Local demo workspace
@@ -42,7 +42,7 @@ pnpm install
 Start the demo:
 
 ```bash
-pnpm --filter @a2ui/example-basic dev
+pnpm --filter @nine1ie/a2ui-example-basic dev
 ```
 
 Common checks:
@@ -57,9 +57,9 @@ pnpm test
 
 The root project provides a publish helper that builds and publishes packages in dependency order:
 
-1. `@a2ui/vue-core`
-2. `@a2ui/vue`
-3. `@a2ui/vue-transport`
+1. `@nine1ie/a2ui-vue-core`
+2. `@nine1ie/a2ui-vue`
+3. `@nine1ie/a2ui-vue-transport`
 
 Dry run:
 
@@ -94,13 +94,13 @@ The script runs `pnpm typecheck`, `pnpm test`, and `pnpm build` before publishin
 ## Install In An Application
 
 ```bash
-pnpm add @a2ui/vue @a2ui/vue-core
+pnpm add @nine1ie/a2ui-vue @nine1ie/a2ui-vue-core
 ```
 
 If you need SSE or WebSocket transport adapters:
 
 ```bash
-pnpm add @a2ui/vue-transport
+pnpm add @nine1ie/a2ui-vue-transport
 ```
 
 ## Renderer Integration
@@ -120,8 +120,8 @@ Recommended order:
 ```vue
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { A2UIRenderer } from '@a2ui/vue'
-import type { ActionMessage, A2UIServerMessage } from '@a2ui/vue-core'
+import { A2UIRenderer } from '@nine1ie/a2ui-vue'
+import type { ActionMessage, A2UIServerMessage } from '@nine1ie/a2ui-vue-core'
 
 const rendererRef = ref<InstanceType<typeof A2UIRenderer> | null>(null)
 
@@ -205,7 +205,7 @@ For streaming output, call `processMessage` as each message arrives. For a compl
 
 ## Transport Integration
 
-`@a2ui/vue-transport` provides standard adapters for connecting the renderer to SSE or WebSocket services. The adapters share a `TransportAdapter` shape:
+`@nine1ie/a2ui-vue-transport` provides standard adapters for connecting the renderer to SSE or WebSocket services. The adapters share a `TransportAdapter` shape:
 
 - `connect()`: open the transport connection.
 - `disconnect()`: close the connection and stop reconnect work.
@@ -219,8 +219,8 @@ If your application already has its own request or streaming layer, you can call
 ### WebSocket
 
 ```ts
-import { createWSTransport } from '@a2ui/vue-transport/websocket'
-import type { ActionMessage } from '@a2ui/vue-core'
+import { createWSTransport } from '@nine1ie/a2ui-vue-transport/websocket'
+import type { ActionMessage } from '@nine1ie/a2ui-vue-core'
 
 const transport = createWSTransport({
   url: 'wss://example.com/a2ui',
@@ -245,8 +245,8 @@ function handleAction(action: ActionMessage) {
 ### SSE
 
 ```ts
-import { createSSETransport } from '@a2ui/vue-transport/sse'
-import type { ActionMessage } from '@a2ui/vue-core'
+import { createSSETransport } from '@nine1ie/a2ui-vue-transport/sse'
+import type { ActionMessage } from '@nine1ie/a2ui-vue-core'
 
 const transport = createSSETransport({
   url: '/api/a2ui/events',
@@ -310,7 +310,7 @@ Minimal JSON example:
 
 ## Packages
 
-### `@a2ui/vue-core`
+### `@nine1ie/a2ui-vue-core`
 
 Protocol core package:
 
@@ -321,14 +321,14 @@ Protocol core package:
 - parser
 - client functions
 
-### `@a2ui/vue`
+### `@nine1ie/a2ui-vue`
 
 Vue 3 renderer and component library. Main exports:
 
 - `A2UIRenderer`
 - base components and renderer styles
 
-### `@a2ui/vue-transport`
+### `@nine1ie/a2ui-vue-transport`
 
 Transport adapters:
 

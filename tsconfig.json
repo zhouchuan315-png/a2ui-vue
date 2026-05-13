@@ -15,9 +15,9 @@
     "declarationMap": true,
     "sourceMap": true,
     "paths": {
-      "@a2ui/vue-core": ["./packages/core/src"],
-      "@a2ui/vue": ["./packages/renderer/src"],
-      "@a2ui/vue-transport": ["./packages/transport/src"]
+      "@nine1ie/a2ui-vue-core": ["./packages/core/src"],
+      "@nine1ie/a2ui-vue": ["./packages/renderer/src"],
+      "@nine1ie/a2ui-vue-transport": ["./packages/transport/src"]
     }
   },
   "include": ["packages/*/src/**/*.ts", "packages/*/src/**/*.vue"],

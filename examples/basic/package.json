@@ -1,5 +1,5 @@
 {
-  "name": "@a2ui/example-basic",
+  "name": "@nine1ie/a2ui-example-basic",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@a2ui/vue": "workspace:*",
-    "@a2ui/vue-transport": "workspace:*",
+    "@nine1ie/a2ui-vue": "workspace:*",
+    "@nine1ie/a2ui-vue-transport": "workspace:*",
     "highlight.js": "^11.11.1",
     "vue": "^3.5.0",
     "vue-router": "^5.0.6"

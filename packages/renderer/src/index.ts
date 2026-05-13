@@ -1,4 +1,4 @@
-// @a2ui/vue - A2UI v0.9 Vue 3 Renderer
+// @nine1ie/a2ui-vue - A2UI v0.9 Vue 3 Renderer
 
 export { default as A2UIRenderer } from './A2UIRenderer.vue'
 export { default as SurfaceRenderer } from './SurfaceRenderer.vue'
@@ -12,4 +12,4 @@ export { generateCSSVariables } from './theme/design-tokens'
 export type { ThemeTokens } from './theme/tokens'
 
 // Re-export core types
-export type * from '@a2ui/vue-core'
+export type * from '@nine1ie/a2ui-vue-core'

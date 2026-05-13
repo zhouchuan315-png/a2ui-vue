@@ -4,6 +4,8 @@ dist
 .DS_Store
 .vite
 *.log
+npm_recovery_codes.txt
+.npm-cache
 coverage
 .turbo
 docs

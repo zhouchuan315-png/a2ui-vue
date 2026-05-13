@@ -1,6 +1,6 @@
 // Mock A2UI v0.9 messages simulating an Agent output stream
 
-import type { A2UIServerMessage } from '@a2ui/vue-core'
+import type { A2UIServerMessage } from '@nine1ie/a2ui-vue-core'
 
 const showcaseIllustration =
   "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 360'><rect width='640' height='360' fill='%23f5f3ff'/><circle cx='118' cy='118' r='64' fill='%237a5cff' fill-opacity='0.18'/><rect x='72' y='214' width='218' height='18' rx='9' fill='%236366f1'/><rect x='72' y='246' width='324' height='12' rx='6' fill='%2394a3b8'/><rect x='72' y='270' width='268' height='12' rx='6' fill='%23cbd5e1'/><rect x='432' y='68' width='136' height='136' rx='28' fill='%237a5cff'/><path d='M480 136l24 24 54-54' stroke='white' stroke-width='18' stroke-linecap='round' stroke-linejoin='round' fill='none'/></svg>"

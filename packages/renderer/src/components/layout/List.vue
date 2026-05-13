@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ComponentDef } from '@a2ui/vue-core'
+import type { ComponentDef } from '@nine1ie/a2ui-vue-core'
 
 defineProps<{
   componentDef: ComponentDef

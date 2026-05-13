@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { A2UIRenderer } from '@a2ui/vue'
-import type { ActionMessage, A2UIServerMessage } from '@a2ui/vue-core'
+import { A2UIRenderer } from '@nine1ie/a2ui-vue'
+import type { ActionMessage, A2UIServerMessage } from '@nine1ie/a2ui-vue-core'
 import { appMessages, type Locale } from './i18n'
 import { registrationForm } from './mock-data'
 

@@ -1,8 +1,8 @@
 // SSE Transport Adapter for A2UI
 
 import type { TransportAdapter } from './index'
-import type { A2UIServerMessage, ActionMessage } from '@a2ui/vue-core'
-import { parseMessage } from '@a2ui/vue-core'
+import type { A2UIServerMessage, ActionMessage } from '@nine1ie/a2ui-vue-core'
+import { parseMessage } from '@nine1ie/a2ui-vue-core'
 
 export interface SSETransportConfig {
   url: string

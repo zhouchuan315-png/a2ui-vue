@@ -1,6 +1,6 @@
-// @a2ui/vue-transport - Transport layer adapters
+// @nine1ie/a2ui-vue-transport - Transport layer adapters
 
-import type { A2UIServerMessage, ActionMessage } from '@a2ui/vue-core'
+import type { A2UIServerMessage, ActionMessage } from '@nine1ie/a2ui-vue-core'
 
 export interface TransportAdapter {
   connect(): void

@@ -16,9 +16,9 @@ A2UI Protocol v0.9 的 Vue 3 渲染器与组件库实现。这个仓库包含协
 
 ```text
 packages/
-  core/          A2UI 协议核心与类型，包名 @a2ui/vue-core
-  renderer/      Vue 3 渲染器与组件库，包名 @a2ui/vue
-  transport/     SSE / WebSocket 传输适配器，包名 @a2ui/vue-transport
+  core/          A2UI 协议核心与类型，包名 @nine1ie/a2ui-vue-core
+  renderer/      Vue 3 渲染器与组件库，包名 @nine1ie/a2ui-vue
+  transport/     SSE / WebSocket 传输适配器，包名 @nine1ie/a2ui-vue-transport
 
 examples/
   basic/         本地 demo 工作台
@@ -42,7 +42,7 @@ pnpm install
 启动 demo：
 
 ```bash
-pnpm --filter @a2ui/example-basic dev
+pnpm --filter @nine1ie/a2ui-example-basic dev
 ```
 
 常用校验：
@@ -57,9 +57,9 @@ pnpm test
 
 根目录提供了发布脚本，会按依赖顺序构建并发布三个包：
 
-1. `@a2ui/vue-core`
-2. `@a2ui/vue`
-3. `@a2ui/vue-transport`
+1. `@nine1ie/a2ui-vue-core`
+2. `@nine1ie/a2ui-vue`
+3. `@nine1ie/a2ui-vue-transport`
 
 先 dry-run 检查：
 
@@ -94,13 +94,13 @@ pnpm publish:npm -- --otp 123456
 ## 安装到业务项目
 
 ```bash
-pnpm add @a2ui/vue @a2ui/vue-core
+pnpm add @nine1ie/a2ui-vue @nine1ie/a2ui-vue-core
 ```
 
 如果需要 SSE 或 WebSocket 传输适配器：
 
 ```bash
-pnpm add @a2ui/vue-transport
+pnpm add @nine1ie/a2ui-vue-transport
 ```
 
 ## 对接渲染器
@@ -120,8 +120,8 @@ pnpm add @a2ui/vue-transport
 ```vue
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { A2UIRenderer } from '@a2ui/vue'
-import type { ActionMessage, A2UIServerMessage } from '@a2ui/vue-core'
+import { A2UIRenderer } from '@nine1ie/a2ui-vue'
+import type { ActionMessage, A2UIServerMessage } from '@nine1ie/a2ui-vue-core'
 
 const rendererRef = ref<InstanceType<typeof A2UIRenderer> | null>(null)
 
@@ -205,7 +205,7 @@ onMounted(() => {
 
 ## 传输对接
 
-`@a2ui/vue-transport` 提供 SSE 和 WebSocket 的标准适配器，用于把 renderer 对接到服务端消息流。适配器共享同一套 `TransportAdapter` 形状：
+`@nine1ie/a2ui-vue-transport` 提供 SSE 和 WebSocket 的标准适配器，用于把 renderer 对接到服务端消息流。适配器共享同一套 `TransportAdapter` 形状：
 
 - `connect()`：打开传输连接。
 - `disconnect()`：关闭连接，并停止重连任务。
@@ -219,8 +219,8 @@ onMounted(() => {
 ### WebSocket
 
 ```ts
-import { createWSTransport } from '@a2ui/vue-transport/websocket'
-import type { ActionMessage } from '@a2ui/vue-core'
+import { createWSTransport } from '@nine1ie/a2ui-vue-transport/websocket'
+import type { ActionMessage } from '@nine1ie/a2ui-vue-core'
 
 const transport = createWSTransport({
   url: 'wss://example.com/a2ui',
@@ -245,8 +245,8 @@ function handleAction(action: ActionMessage) {
 ### SSE
 
 ```ts
-import { createSSETransport } from '@a2ui/vue-transport/sse'
-import type { ActionMessage } from '@a2ui/vue-core'
+import { createSSETransport } from '@nine1ie/a2ui-vue-transport/sse'
+import type { ActionMessage } from '@nine1ie/a2ui-vue-core'
 
 const transport = createSSETransport({
   url: '/api/a2ui/events',
@@ -310,7 +310,7 @@ function handleAction(action: ActionMessage) {
 
 ## 包说明
 
-### `@a2ui/vue-core`
+### `@nine1ie/a2ui-vue-core`
 
 协议核心包，包含：
 
@@ -321,14 +321,14 @@ function handleAction(action: ActionMessage) {
 - parser
 - client functions
 
-### `@a2ui/vue`
+### `@nine1ie/a2ui-vue`
 
 Vue 3 渲染器与组件库，主要导出：
 
 - `A2UIRenderer`
 - 基础组件与渲染器样式
 
-### `@a2ui/vue-transport`
+### `@nine1ie/a2ui-vue-transport`
 
 传输适配器，包含：
 

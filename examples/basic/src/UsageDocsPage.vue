@@ -50,14 +50,14 @@ const props = withDefaults(defineProps<{
 })
 const copiedCodeKey = ref<string | null>(null)
 
-const installCode = `pnpm add @a2ui/vue @a2ui/vue-core`
-const transportInstallCode = `pnpm add @a2ui/vue-transport`
+const installCode = `pnpm add @nine1ie/a2ui-vue @nine1ie/a2ui-vue-core`
+const transportInstallCode = `pnpm add @nine1ie/a2ui-vue-transport`
 
 const renderCode = [
   '<script setup lang="ts">',
   "import { onMounted, ref } from 'vue'",
-  "import { A2UIRenderer } from '@a2ui/vue'",
-  "import type { ActionMessage, A2UIServerMessage } from '@a2ui/vue-core'",
+  "import { A2UIRenderer } from '@nine1ie/a2ui-vue'",
+  "import type { ActionMessage, A2UIServerMessage } from '@nine1ie/a2ui-vue-core'",
   '',
   'const rendererRef = ref<InstanceType<typeof A2UIRenderer> | null>(null)',
   'const messages = ref<A2UIServerMessage[]>([])',
@@ -119,8 +119,8 @@ const actionCode = `function handleAction(action: ActionMessage) {
   }
 }`
 
-const websocketTransportCode = `import { createWSTransport } from '@a2ui/vue-transport/websocket'
-import type { ActionMessage } from '@a2ui/vue-core'
+const websocketTransportCode = `import { createWSTransport } from '@nine1ie/a2ui-vue-transport/websocket'
+import type { ActionMessage } from '@nine1ie/a2ui-vue-core'
 
 const transport = createWSTransport({
   url: 'wss://example.com/a2ui',
@@ -141,8 +141,8 @@ function handleAction(action: ActionMessage) {
   transport.onAction(action)
 }`
 
-const sseTransportCode = `import { createSSETransport } from '@a2ui/vue-transport/sse'
-import type { ActionMessage } from '@a2ui/vue-core'
+const sseTransportCode = `import { createSSETransport } from '@nine1ie/a2ui-vue-transport/sse'
+import type { ActionMessage } from '@nine1ie/a2ui-vue-core'
 
 const transport = createSSETransport({
   url: '/api/a2ui/events',
@@ -218,7 +218,7 @@ const docsByLocale: Record<Locale, UsageDocsCopy> = {
         title: '1. 安装依赖',
         body: [
           '在业务项目中安装 Vue 渲染器和协议类型包。当前 monorepo demo 通过 workspace 引用，外部项目按包名安装即可。',
-          '如果需要直接对接 SSE 或 WebSocket 服务，再安装 @a2ui/vue-transport。',
+          '如果需要直接对接 SSE 或 WebSocket 服务，再安装 @nine1ie/a2ui-vue-transport。',
         ],
         codeBlocks: [
           { title: '渲染器与协议类型', language: 'bash', code: installCode },
@@ -259,9 +259,9 @@ const docsByLocale: Record<Locale, UsageDocsCopy> = {
       },
       {
         id: 'transport',
-        title: '4. 使用 @a2ui/vue-transport',
+        title: '4. 使用 @nine1ie/a2ui-vue-transport',
         body: [
-          '@a2ui/vue-transport 提供统一的 TransportAdapter 接口，用来把服务端消息送入 renderer，并把 renderer 发出的 action 回传给服务端。',
+          '@nine1ie/a2ui-vue-transport 提供统一的 TransportAdapter 接口，用来把服务端消息送入 renderer，并把 renderer 发出的 action 回传给服务端。',
           '如果业务已经有自己的请求层，可以不使用这个包，直接调用 renderer.processMessage。需要标准 SSE 或 WebSocket 对接时再引入它。',
         ],
         bullets: [
@@ -332,7 +332,7 @@ const docsByLocale: Record<Locale, UsageDocsCopy> = {
         title: '1. Install Packages',
         body: [
           'Install the Vue renderer and protocol type package in your application. This monorepo demo uses workspace packages; external apps can install by package name.',
-          'Install @a2ui/vue-transport as well when you want standard SSE or WebSocket integration.',
+          'Install @nine1ie/a2ui-vue-transport as well when you want standard SSE or WebSocket integration.',
         ],
         codeBlocks: [
           { title: 'Renderer and protocol types', language: 'bash', code: installCode },
@@ -373,9 +373,9 @@ const docsByLocale: Record<Locale, UsageDocsCopy> = {
       },
       {
         id: 'transport',
-        title: '4. Use @a2ui/vue-transport',
+        title: '4. Use @nine1ie/a2ui-vue-transport',
         body: [
-          '@a2ui/vue-transport provides a shared TransportAdapter interface for sending server messages into the renderer and forwarding emitted actions back to the server.',
+          '@nine1ie/a2ui-vue-transport provides a shared TransportAdapter interface for sending server messages into the renderer and forwarding emitted actions back to the server.',
           'If your application already has its own request layer, you can skip this package and call renderer.processMessage directly. Use it when you want standard SSE or WebSocket adapters.',
         ],
         bullets: [

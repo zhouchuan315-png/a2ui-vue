@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { provide, ref, computed } from 'vue'
-import { SurfaceManager, type ActionMessage, type Theme, type A2UIServerMessage } from '@a2ui/vue-core'
+import { SurfaceManager, type ActionMessage, type Theme, type A2UIServerMessage } from '@nine1ie/a2ui-vue-core'
 import SurfaceRenderer from './SurfaceRenderer.vue'
 import { provideTheme } from './theme/provide'
 

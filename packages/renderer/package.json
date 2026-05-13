@@ -1,5 +1,5 @@
 {
-  "name": "@a2ui/vue",
+  "name": "@nine1ie/a2ui-vue",
   "version": "0.1.0",
   "description": "A2UI v0.9 Vue 3 renderer and 18 base components",
   "license": "MIT",
@@ -21,7 +21,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@a2ui/vue-core": "workspace:*"
+    "@nine1ie/a2ui-vue-core": "workspace:*"
   },
   "peerDependencies": {
     "vue": "^3.5.0"

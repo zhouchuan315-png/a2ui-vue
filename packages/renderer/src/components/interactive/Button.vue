@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
-import type { ComponentDef, ActionMessage } from '@a2ui/vue-core'
-import { isDynamicValue, resolvePath, resolveLiteral, executeFunction } from '@a2ui/vue-core'
+import type { ComponentDef, ActionMessage } from '@nine1ie/a2ui-vue-core'
+import { isDynamicValue, resolvePath, resolveLiteral, executeFunction } from '@nine1ie/a2ui-vue-core'
 import { DATAMODEL_KEY, SURFACE_KEY } from '../../composables/useSurface'
 
 const props = defineProps<{

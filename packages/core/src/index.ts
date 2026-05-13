@@ -1,4 +1,4 @@
-// @a2ui/vue-core - A2UI v0.9 Protocol Core
+// @nine1ie/a2ui-vue-core - A2UI v0.9 Protocol Core
 
 export * from './types'
 export { parseMessage, parseMessageStream, validateMessage, A2UIParseError } from './parser'

@@ -8,7 +8,7 @@ import {
   executeFunction,
   type DynamicValue,
   type Scope,
-} from '@a2ui/vue-core'
+} from '@nine1ie/a2ui-vue-core'
 import { DATAMODEL_KEY, REGISTRY_KEY } from './useSurface'
 
 export function useDataModel() {

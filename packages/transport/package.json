@@ -1,5 +1,5 @@
 {
-  "name": "@a2ui/vue-transport",
+  "name": "@nine1ie/a2ui-vue-transport",
   "version": "0.1.0",
   "description": "A2UI v0.9 transport adapters: SSE, WebSocket",
   "license": "MIT",
@@ -28,7 +28,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@a2ui/vue-core": "workspace:*"
+    "@nine1ie/a2ui-vue-core": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
