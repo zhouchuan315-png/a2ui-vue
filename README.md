@@ -10,7 +10,8 @@ A Vue 3 renderer and component library for A2UI Protocol v0.9. This repository i
 - Protocol core: surface management, component registry, data model, function calls, and protocol types.
 - Base components: layout, content, input, navigation, and decoration primitives.
 - Transport adapters: SSE and WebSocket integration entry points.
-- Demo workspace: Basic Catalog, Composition Components, JSON Renderer, and Usage Docs pages.
+- A2A adapter: Agent Card discovery, JSON-RPC transport, streaming event parsing, and A2A-to-A2UI mapping.
+- Demo workspace: Basic Catalog, Composition Components, JSON Renderer, Usage Docs, Restaurant Finder, and A2A Playground pages.
 
 ## Project Structure
 
@@ -19,6 +20,7 @@ packages/
   core/          A2UI protocol core and types, package @nine1ie/a2ui-vue-core
   renderer/      Vue 3 renderer and component library, package @nine1ie/a2ui-vue
   transport/     SSE / WebSocket transport adapters, package @nine1ie/a2ui-vue-transport
+  a2a/           A2A protocol adapter, package @nine1ie/a2ui-vue-a2a
 
 examples/
   basic/         Local demo workspace
@@ -60,6 +62,7 @@ The root project provides a publish helper that builds and publishes packages in
 1. `@nine1ie/a2ui-vue-core`
 2. `@nine1ie/a2ui-vue`
 3. `@nine1ie/a2ui-vue-transport`
+4. `@nine1ie/a2ui-vue-a2a`
 
 Dry run:
 
@@ -80,16 +83,24 @@ pnpm publish:npm -- --tag next
 pnpm publish:npm -- --otp 123456
 ```
 
+Set every package to a new version before publishing:
+
+```bash
+pnpm publish:npm -- --set-version 0.1.1 --otp 123456
+```
+
 The script runs `pnpm typecheck`, `pnpm test`, and `pnpm build` before publishing. Use `--skip-tests` only when CI has already completed those checks.
 
 ## Demo Workspace
 
-`examples/basic` currently includes four pages:
+`examples/basic` currently includes six pages:
 
 - Basic Catalog: inspect primitive component previews, props, minimal JSON, and advanced JSON.
 - Composition Components: inspect real UI fragments assembled from primitives and review full configuration.
 - JSON Renderer: paste a message array, a single message, or JSONL and preview the rendered result.
 - Usage Docs: review installation, renderer integration, message ordering, and debugging guidance.
+- Restaurant Finder: simulate agent-streamed restaurant recommendations with playback controls.
+- A2A Playground: preview A2A output with static mock data or an optional custom Agent Card URL.
 
 ## Install In An Application
 
@@ -101,6 +112,12 @@ If you need SSE or WebSocket transport adapters:
 
 ```bash
 pnpm add @nine1ie/a2ui-vue-transport
+```
+
+If you need to connect to an A2A (Agent2Agent) agent:
+
+```bash
+pnpm add @nine1ie/a2ui-vue-a2a
 ```
 
 ## Renderer Integration
@@ -265,6 +282,37 @@ function handleAction(action: ActionMessage) {
 }
 ```
 
+## A2A Integration
+
+`@nine1ie/a2ui-vue-a2a` connects an A2A agent to the renderer. It handles Agent Card discovery, JSON-RPC requests, SSE streaming responses, and maps A2A messages, tasks, artifacts, and actions into A2UI messages.
+
+```ts
+import { createA2ATransport } from '@nine1ie/a2ui-vue-a2a'
+import type { ActionMessage } from '@nine1ie/a2ui-vue-core'
+
+const transport = createA2ATransport({
+  agentCardUrl: 'https://agent.example.com/.well-known/agent-card.json',
+  streaming: true,
+})
+
+transport.onMessage((message) => {
+  rendererRef.value?.processMessage(message)
+})
+
+transport.onError((error) => {
+  console.error('A2A transport error:', error)
+})
+
+await transport.connect()
+await transport.sendText('Build a sales summary UI')
+
+function handleAction(action: ActionMessage) {
+  transport.onAction(action)
+}
+```
+
+The static demo uses local mock data by default. Remote A2A connections require an accessible Agent Card URL and, when needed, application-provided auth headers.
+
 ## A2UI Server Message
 
 The most common server message types are:
@@ -334,6 +382,15 @@ Transport adapters:
 
 - SSE adapter
 - WebSocket adapter
+
+### `@nine1ie/a2ui-vue-a2a`
+
+A2A protocol adapter:
+
+- Agent Card discovery and validation
+- JSON-RPC client
+- SSE stream parsing
+- A2A task, message, artifact, and action mapping
 
 ## License
 

@@ -1,7 +1,7 @@
 {
-  "name": "@nine1ie/a2ui-vue-core",
+  "name": "@nine1ie/a2ui-vue-a2a",
   "version": "0.1.1",
-  "description": "A2UI v0.9 protocol core: parser, data model, client functions",
+  "description": "A2A (Agent2Agent) protocol adapter for A2UI Vue renderer",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -10,10 +10,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./types": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/types/index.js"
     }
   },
   "files": [
@@ -24,6 +20,9 @@
     "dev": "tsup src/index.ts --format esm --dts --outDir dist --watch",
     "test": "vitest run",
     "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@nine1ie/a2ui-vue-core": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.0.0",

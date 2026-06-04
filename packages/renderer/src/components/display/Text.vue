@@ -41,6 +41,8 @@ const tag = computed(() => {
   margin: 0;
   line-height: var(--a2-line-height);
   color: var(--a2-text-primary);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
 }
 .a2-text--h1 { font-size: var(--a2-font-size-4xl); font-weight: var(--a2-font-weight-bold); line-height: 1.05; letter-spacing: -0.03em; }
 .a2-text--h2 { font-size: var(--a2-font-size-3xl); font-weight: var(--a2-font-weight-bold); line-height: 1.1; letter-spacing: -0.025em; }

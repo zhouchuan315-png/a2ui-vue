@@ -3,7 +3,7 @@ import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { appMessages, localeOptions, type Locale } from './i18n'
 
-type NavKey = 'basic' | 'composition' | 'json' | 'docs' | 'restaurant'
+type NavKey = 'basic' | 'composition' | 'json' | 'docs' | 'restaurant' | 'a2a'
 
 interface NavItem {
   key: NavKey
@@ -16,6 +16,7 @@ const navItems: NavItem[] = [
   { key: 'json', route: '/json' },
   { key: 'docs', route: '/docs' },
   { key: 'restaurant', route: '/restaurant' },
+  { key: 'a2a', route: '/a2a' },
 ]
 
 const navIconPaths: Record<string, string[]> = {
@@ -24,6 +25,7 @@ const navIconPaths: Record<string, string[]> = {
   json: ['M8 8l-3 4 3 4', 'M16 8l3 4-3 4', 'M13.5 6.5l-3 11'],
   docs: ['M6.5 5.5h8l3 3v10h-11z', 'M14.5 5.5v3h3', 'M9 12h6M9 15h6M9 9h2'],
   restaurant: ['M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'],
+  a2a: ['M12 2L2 7l10 5 10-5-10-5z', 'M2 17l10 5 10-5', 'M2 12l10 5 10-5'],
   workspace: ['M4.5 6.5h15v11h-15z', 'M4.5 10.5h15', 'M10.5 10.5v7'],
 }
 

@@ -14,6 +14,7 @@ export const appMessages = {
       json: 'JSON 渲染',
       docs: '使用文档',
       restaurant: '餐厅查找',
+      a2a: 'A2A Playground',
     },
     sidebar: {
       workspace: '工作区',
@@ -116,6 +117,7 @@ export const appMessages = {
       json: 'JSON Renderer',
       docs: 'Usage Docs',
       restaurant: 'Restaurant Finder',
+      a2a: 'A2A Playground',
     },
     sidebar: {
       workspace: 'Workspace',

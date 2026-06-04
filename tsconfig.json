@@ -17,7 +17,8 @@
     "paths": {
       "@nine1ie/a2ui-vue-core": ["./packages/core/src"],
       "@nine1ie/a2ui-vue": ["./packages/renderer/src"],
-      "@nine1ie/a2ui-vue-transport": ["./packages/transport/src"]
+      "@nine1ie/a2ui-vue-transport": ["./packages/transport/src"],
+      "@nine1ie/a2ui-vue-a2a": ["./packages/a2a/src"]
     }
   },
   "include": ["packages/*/src/**/*.ts", "packages/*/src/**/*.vue"],

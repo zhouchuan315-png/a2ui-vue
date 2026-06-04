@@ -10,7 +10,8 @@ A2UI Protocol v0.9 的 Vue 3 渲染器与组件库实现。这个仓库包含协
 - 协议核心：包含 surface、component registry、data model、function call 等核心能力。
 - 基础组件：布局、内容、输入、导航、装饰等基础组件。
 - 传输适配器：提供 SSE 与 WebSocket 对接入口。
-- Demo 工作台：包含基础目录、组合组件、JSON 渲染、使用文档页面。
+- A2A 适配器：支持 Agent Card 发现、JSON-RPC 传输、流式事件解析，以及 A2A 到 A2UI 的映射。
+- Demo 工作台：包含基础目录、组合组件、JSON 渲染、使用文档、餐厅查找、A2A Playground 页面。
 
 ## 项目结构
 
@@ -19,6 +20,7 @@ packages/
   core/          A2UI 协议核心与类型，包名 @nine1ie/a2ui-vue-core
   renderer/      Vue 3 渲染器与组件库，包名 @nine1ie/a2ui-vue
   transport/     SSE / WebSocket 传输适配器，包名 @nine1ie/a2ui-vue-transport
+  a2a/           A2A 协议适配器，包名 @nine1ie/a2ui-vue-a2a
 
 examples/
   basic/         本地 demo 工作台
@@ -60,6 +62,7 @@ pnpm test
 1. `@nine1ie/a2ui-vue-core`
 2. `@nine1ie/a2ui-vue`
 3. `@nine1ie/a2ui-vue-transport`
+4. `@nine1ie/a2ui-vue-a2a`
 
 先 dry-run 检查：
 
@@ -80,16 +83,24 @@ pnpm publish:npm -- --tag next
 pnpm publish:npm -- --otp 123456
 ```
 
+发布前把所有包同步更新到指定版本：
+
+```bash
+pnpm publish:npm -- --set-version 0.1.1 --otp 123456
+```
+
 脚本发布前会执行 `pnpm typecheck`、`pnpm test` 和 `pnpm build`。只有在 CI 已完成这些检查时，才建议使用 `--skip-tests`。
 
 ## Demo 工作台
 
-`examples/basic` 目前包含四个页面：
+`examples/basic` 目前包含六个页面：
 
 - 基础目录：查看基础组件预览、props、最小 JSON 和进阶 JSON。
 - 组合组件：查看由多个基础组件组合出的业务片段，并查看完整配置。
 - JSON 渲染：粘贴 message 数组、单条 message 或 JSONL，直接预览渲染结果。
 - 使用文档：查看安装、渲染器接入、message 顺序、调试方式等说明。
+- 餐厅查找：模拟 agent 流式输出餐厅推荐，并支持播放控制。
+- A2A Playground：使用静态 mock 数据预览 A2A 输出，也可手动填写自定义 Agent Card URL。
 
 ## 安装到业务项目
 
@@ -101,6 +112,12 @@ pnpm add @nine1ie/a2ui-vue @nine1ie/a2ui-vue-core
 
 ```bash
 pnpm add @nine1ie/a2ui-vue-transport
+```
+
+如果需要连接 A2A (Agent2Agent) agent：
+
+```bash
+pnpm add @nine1ie/a2ui-vue-a2a
 ```
 
 ## 对接渲染器
@@ -265,6 +282,37 @@ function handleAction(action: ActionMessage) {
 }
 ```
 
+## A2A 对接
+
+`@nine1ie/a2ui-vue-a2a` 用于把 A2A agent 对接到 renderer。它会处理 Agent Card 发现、JSON-RPC 请求、SSE 流式响应，并把 A2A message、task、artifact、action 映射成 A2UI messages。
+
+```ts
+import { createA2ATransport } from '@nine1ie/a2ui-vue-a2a'
+import type { ActionMessage } from '@nine1ie/a2ui-vue-core'
+
+const transport = createA2ATransport({
+  agentCardUrl: 'https://agent.example.com/.well-known/agent-card.json',
+  streaming: true,
+})
+
+transport.onMessage((message) => {
+  rendererRef.value?.processMessage(message)
+})
+
+transport.onError((error) => {
+  console.error('A2A transport error:', error)
+})
+
+await transport.connect()
+await transport.sendText('生成一个销售摘要 UI')
+
+function handleAction(action: ActionMessage) {
+  transport.onAction(action)
+}
+```
+
+静态 demo 默认使用本地 mock 数据。远程 A2A 连接需要填写可访问的 Agent Card URL，如有鉴权需求，由业务侧提供认证头。
+
 ## A2UI Server Message
 
 最常用的 server message 类型：
@@ -334,6 +382,15 @@ Vue 3 渲染器与组件库，主要导出：
 
 - SSE adapter
 - WebSocket adapter
+
+### `@nine1ie/a2ui-vue-a2a`
+
+A2A 协议适配器，包含：
+
+- Agent Card 发现与校验
+- JSON-RPC client
+- SSE stream parser
+- A2A task、message、artifact、action 映射
 
 ## License
 

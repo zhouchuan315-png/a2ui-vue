@@ -1,6 +1,6 @@
 {
   "name": "@nine1ie/a2ui-vue-transport",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A2UI v0.9 transport adapters: SSE, WebSocket",
   "license": "MIT",
   "type": "module",
@@ -20,7 +20,9 @@
       "import": "./dist/websocket.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup src/index.ts src/sse.ts src/websocket.ts --format esm --dts --outDir dist",
     "dev": "tsup src/index.ts src/sse.ts src/websocket.ts --format esm --dts --outDir dist --watch",

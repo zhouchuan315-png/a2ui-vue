@@ -11,6 +11,7 @@
   "dependencies": {
     "@nine1ie/a2ui-vue": "workspace:*",
     "@nine1ie/a2ui-vue-transport": "workspace:*",
+    "@nine1ie/a2ui-vue-a2a": "workspace:*",
     "highlight.js": "^11.11.1",
     "vue": "^3.5.0",
     "vue-router": "^5.0.6"

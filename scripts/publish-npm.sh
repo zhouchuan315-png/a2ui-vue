@@ -7,10 +7,18 @@ NPM_ACCESS="${NPM_ACCESS:-public}"
 NPM_OTP="${NPM_OTP:-}"
 NPM_OTP_FILE="${NPM_OTP_FILE:-}"
 NPM_CONFIG_CACHE="${NPM_CONFIG_CACHE:-$ROOT_DIR/.npm-cache}"
+NPM_CONFIG_REGISTRY="${NPM_CONFIG_REGISTRY:-https://registry.npmjs.org}"
+RELEASE_VERSION="${RELEASE_VERSION:-}"
 DRY_RUN=0
 SKIP_TESTS=0
 OTP_CODES=()
 OTP_INDEX=0
+PACKAGE_DIRS=(
+  "packages/core"
+  "packages/renderer"
+  "packages/transport"
+  "packages/a2a"
+)
 
 usage() {
   cat <<'EOF'
@@ -23,6 +31,7 @@ Options:
   --access <access>  npm access. Default: public.
   --otp <otp>        npm one-time password for 2FA.
   --otp-file <file>  Read one OTP/recovery code per published package.
+  --set-version <v>  Set every package version before building and publishing.
   -h, --help         Show this help message.
 
 Environment:
@@ -31,16 +40,22 @@ Environment:
   NPM_OTP            Same as --otp.
   NPM_OTP_FILE       Same as --otp-file.
   NPM_CONFIG_CACHE   npm cache directory. Default: ./.npm-cache.
+  NPM_CONFIG_REGISTRY npm registry. Default: https://registry.npmjs.org.
+  RELEASE_VERSION    Same as --set-version.
 
 Publish order:
   1. @nine1ie/a2ui-vue-core
   2. @nine1ie/a2ui-vue
   3. @nine1ie/a2ui-vue-transport
+  4. @nine1ie/a2ui-vue-a2a
 EOF
 }
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    --)
+      shift
+      ;;
     --dry-run)
       DRY_RUN=1
       shift
@@ -65,6 +80,10 @@ while [[ $# -gt 0 ]]; do
       NPM_OTP_FILE="${2:?Missing value for --otp-file}"
       shift 2
       ;;
+    --set-version)
+      RELEASE_VERSION="${2:?Missing value for --set-version}"
+      shift 2
+      ;;
     -h|--help)
       usage
       exit 0
@@ -79,6 +98,30 @@ done
 
 cd "$ROOT_DIR"
 export NPM_CONFIG_CACHE
+export NPM_CONFIG_REGISTRY
+
+if [[ -n "$RELEASE_VERSION" ]]; then
+  if [[ ! "$RELEASE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?(\+[0-9A-Za-z.-]+)?$ ]]; then
+    echo "Invalid semver version: $RELEASE_VERSION" >&2
+    exit 1
+  fi
+
+  node - "$RELEASE_VERSION" "${PACKAGE_DIRS[@]}" <<'EOF'
+const fs = require('node:fs')
+const path = require('node:path')
+
+const [, , version, ...packageDirs] = process.argv
+
+for (const packageDir of packageDirs) {
+  const packageJsonPath = path.join(packageDir, 'package.json')
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
+  const previous = packageJson.version
+  packageJson.version = version
+  fs.writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`)
+  console.log(`${packageJson.name}: ${previous} -> ${version}`)
+}
+EOF
+fi
 
 if [[ -n "$NPM_OTP_FILE" ]]; then
   if [[ ! -f "$NPM_OTP_FILE" ]]; then
@@ -129,8 +172,8 @@ publish_package() {
   )
 }
 
-publish_package "packages/core"
-publish_package "packages/renderer"
-publish_package "packages/transport"
+for package_dir in "${PACKAGE_DIRS[@]}"; do
+  publish_package "$package_dir"
+done
 
 echo "Publish finished."
