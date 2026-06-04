@@ -1,0 +1,51 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "examples/basic/**"
+      - "packages/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "tsconfig.json"
+      - "vitest.config.ts"
+      - ".github/workflows/deploy-docs.yml"
+  workflow_dispatch:
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build basic demo
+        run: pnpm exec vite build --base /a2ui-vue-docs/
+        working-directory: examples/basic
+
+      - name: Deploy to docs repository
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.DOCS_DEPLOY_KEY }}
+          external_repository: zhouchuan315-png/a2ui-vue-docs
+          publish_branch: main
+          publish_dir: examples/basic/dist
+          force_orphan: false
