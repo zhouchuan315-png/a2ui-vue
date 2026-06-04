@@ -1,6 +1,6 @@
 {
   "name": "@nine1ie/a2ui-vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A2UI v0.9 Vue 3 renderer and 18 base components",
   "license": "MIT",
   "type": "module",
@@ -11,7 +11,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./style": "./dist/style.css"
+    "./style": "./dist/index.css"
   },
   "files": ["dist"],
   "scripts": {
